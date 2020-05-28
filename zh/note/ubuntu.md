@@ -1,3 +1,13 @@
+---
+metaTitle: Ubuntu安装可视化界面 | Fastdoc
+meta:
+  - name: description
+    content: Fastdoc,doc,docs,Fast文档,文档,中文文档,用户文档,博客,文
+  - name: keywords
+    content: Fastdoc,doc,docs,Fast文档,文档,中文文档,用户文档,博客,文
+---
+
+
 # 更新系统
 ```
 sudo apt update -y && sudo apt upgrade -y
