@@ -9,29 +9,12 @@ jobs:
 
     steps:
     - name: Download master file
-      uses: actions/checkout@v2
-      with:
-        ref: master
+      uses: actions/checkout@master
 
-    - name: Prepare Node env
-      uses: actions/setup-node@v1
-      with:
-        node-version: "10.x"
-
-    
-
-    - name: Vuepress
-      run: |
-        yarn
-        yarn run build
-        cp README.md dist
-        cd dist
-        git config --global user.name 'Fastdoc'
-        git config --global user.email 'admin@Juukee.cn'
-        git init
-        git add -A
-        git commit -m 'Update'
-        git push -f git@github.com:juukee/fastdoc.git dist
-        rm -fr .git
+    - name: vuepress-deploy
+      uses: jenkey2011/vuepress-deploy@master
       env:
-        ACCESS_TOKEN: "${{ secrets.ACCESS_TOKEN}}"
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        TARGET_BRANCH: master
+        BUILD_SCRIPT: yarn && yarn build
+        BUILD_DIR: dist/
