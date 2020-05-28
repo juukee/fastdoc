@@ -1,0 +1,2 @@
+# fastdoc
+Document translation manual
