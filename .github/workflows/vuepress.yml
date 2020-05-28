@@ -1,0 +1,36 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download Source file
+      uses: actions/checkout@v2
+      with:
+        ref: source
+
+    - name: Prepare Node env
+      uses: actions/setup-node@v1
+      with:
+        node-version: "10.x"
+
+    
+
+    - name: Vuepress
+      run: |
+        yarn
+        yarn run build
+        cp README.md dist
+        cd dist
+        git config --global user.name 'Fastdoc'
+        git config --global user.email 'admin@Juukee.cn'
+        git init
+        git add -A
+        git commit -m 'Update'
+        git push -f git@github.com:juukee/fastdoc.git dist
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
