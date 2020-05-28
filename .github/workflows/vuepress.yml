@@ -32,5 +32,6 @@ jobs:
         git add -A
         git commit -m 'Update'
         git push -f git@github.com:juukee/fastdoc.git dist
+        rm -fr .git
       env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        ACCESS_TOKEN: "${{ secrets.ACCESS_TOKEN}}"
