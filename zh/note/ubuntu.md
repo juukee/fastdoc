@@ -34,7 +34,8 @@ sudo apt install firefox
 ```
 apt-get install language-pack-zh*
 apt-get install chinese*
-apt-get install fonts-arphic-ukai fonts-arphic-uming fonts-ipafont-mincho fonts-ipafont-gothic fonts-unfonts-core
+sudo apt install -y  --no-install-recommends fonts-wqy-microhei
+sudo apt install -y  --no-install-recommends ttf-wqy-zenhei
 ```
 
 设置支持中文显示执行
