@@ -1,19 +1,16 @@
 const moment = require('moment-timezone');
 const path = require('path');
-const purgecss = require('@fullhuman/postcss-purgecss')
 
 module.exports = {
   dest: 'dist',
   locales: {
-    // 键名是该语言所属的子路径
-    // 作为特例，默认语言可以使用 '/' 作为其路径。
     '/': {
-      lang: 'zh-CN', // 将会被设置为 <html> 的 lang 属性
+      lang: 'zh-CN', 
       description: '此页面收录简体中文版的开发者文档',
     },
     '/en/': {
       lang: 'en-US',
-      description: 'This page contains developer documents in simplified Chinese',
+      description: 'This page contains developer documents in English',
     },
   },
   title: 'Fastdoc',
@@ -31,47 +28,8 @@ module.exports = {
   ],
   themeConfig: {
     locales: {
-      '/': {
-        // 多语言下拉菜单的标题
-        selectText: '语言切换',
-        // 该语言在下拉菜单中的标签
-        label: '简体中文',
-        // 编辑链接文字
-        editLinkText: '帮助我们完善文档',
-        // 最后更新的描述
-        lastUpdated: '文档更新于',
-        // Service Worker 的配置
-        serviceWorker: {
-          updatePopup: {
-            message: '发现新内容可用.',
-            buttonText: '刷新',
-          },
-        },
-        nav: [
-          { text: '配置指南', link: '/zh/guide/' },
-          { text: '支持我们', link: '/zh/contribute/' },
-          { text: '查看源码', link: 'https://github.com/juukee/fastdoc' },
-        ],
-      },
-      '/en/': {
-        repoLabel: 'find code',
-        selectText: 'Languages',
-        label: 'English',
-        ariaLabel: 'Languages',
-        editLinkText: 'Edit this docs',
-        lastUpdated: 'Last Updated',
-        serviceWorker: {
-          updatePopup: {
-            message: 'New content is available.',
-            buttonText: 'Refresh',
-          },
-        },
-        nav: [
-          { text: 'Guide', link: '/en/guide/' },
-          { text: 'Contribute', link: '/en/contribute/' },
-          { text: 'Github', link: 'https://github.com/juukee/fastdoc' },
-        ],
-      },
+      '/': require('./config/default.js'),
+      '/en/': require('./config/en.js'),
     },
     sidebar: 'auto',
     // 假如你的文档仓库和项目本身不在一个仓库：
@@ -82,13 +40,6 @@ module.exports = {
     docsBranch: 'source',
     // 默认是 false, 设置为 true 来启用
     editLinks: true,
-    // algolia: {
-    //   appId: 'O6KPG8ROHF',
-    //   apiKey: '0c392cf5b536ddb441c288f385588834',
-    //   indexName: 'docs'
-    // },
-    // search: false,
-    // searchMaxSuggestions: 10
   },
   // 显示行号
   markdown: {
@@ -118,19 +69,20 @@ module.exports = {
       updatePopup: true
     },
     'flexsearch': {
-      /*
-        Plugin custom options
-      */
       maxSuggestions: 10,    // how many search suggestions to show on the menu, the default is 10.
+      searchHotkeys: ['s'],    // Hot keys to activate the search input, the default is "s" but you can add more.
+      searchResultLength: 60,    // the length of the suggestion result text by characters, the default is 60 characters.
+      encode: function (str) {
+        return str.replace(/[\x00-\x7F]/g, "").split("");
+      },
+      tokenize: function (str) {
+        return str.replace(/[\x00-\x7F]/g, "").split("");
+      },
+      // resolution: 9,
+
     },
+    '@vuepress/nprogress': true
+
   },
-  // postcss: {
-  //   plugins: [
-  //     require('autoprefixer'),
-  //     purgecss({
-  //         content: ['./dist/**/*.html']
-  //       }),
-  //   ]
-  // },
   enhanceAppFiles: path.resolve(__dirname, 'script.js')
 };

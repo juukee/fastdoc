@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /fast_doc.png
-heroText: Chinese document manual
+heroText: English document manual
 meta:
   - name: keywords
     content: Fastdoc,doc,docs,Fast,blog,
